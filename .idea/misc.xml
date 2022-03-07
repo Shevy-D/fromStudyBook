@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/User/AndroidStudioProjects/GeoQuiz/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/dmitr/Desktop/GeoQuiz/app/src/main/res/drawable/arrow_left.xml" value="0.1" />
+        <entry key="..\:/Users/dmitr/Desktop/GeoQuiz/app/src/main/res/drawable/arrow_right.xml" value="0.1" />
         <entry key="..\:/Users/dmitr/Desktop/GeoQuiz/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
       </map>
     </option>
@@ -13,5 +15,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="SuppressABINotification">
+    <option name="modulesWithSuppressedNotConfigured">
+      <set>
+        <option value="GeoQuiz.app" />
+      </set>
+    </option>
   </component>
 </project>
