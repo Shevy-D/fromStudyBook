@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var nextButton: ImageButton
     private lateinit var lastButton: ImageButton
     private lateinit var questionTextView: TextView
+    private lateinit var resultTextView: TextView
 
     private val questionBank = listOf(
         Question(R.string.question_australia, true),
@@ -24,6 +25,8 @@ class MainActivity : AppCompatActivity() {
         Question(R.string.question_asia, true))
 
     private var currentIndex = 0
+    private var countTrueAnswer = 0
+    private var countAnswer = 6
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         nextButton = findViewById(R.id.next_button)
         lastButton = findViewById(R.id.last_button)
         questionTextView = findViewById(R.id.question_text_view)
+        resultTextView = findViewById(R.id.result)
 
         trueButton.setOnClickListener { /*view: View ->*/
             checkAnswer(true)
@@ -54,6 +58,9 @@ class MainActivity : AppCompatActivity() {
     private fun updateQuestion() {
         val questionTextResId = questionBank[currentIndex].textResId
         questionTextView.setText(questionTextResId)
+        resultTextView.setText((countTrueAnswer/countAnswer).toString())
+        trueButton.isClickable = true
+        falseButton.isClickable = true
     }
 
     private fun checkAnswer(userAnswer: Boolean) {
@@ -63,6 +70,10 @@ class MainActivity : AppCompatActivity() {
         } else {
             R.string.incorrect_toast
         }
+        if (userAnswer == correctAnswer) countTrueAnswer++
+
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show()
+        trueButton.isClickable = false
+        falseButton.isClickable = false
     }
 }
