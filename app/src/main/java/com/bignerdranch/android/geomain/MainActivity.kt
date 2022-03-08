@@ -2,6 +2,7 @@ package com.bignerdranch.android.geomain
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
     private var currentIndex = 0
     private var countTrueAnswer = 0
-    private var countAnswer = 6
+    private var countAnswer = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,10 +56,34 @@ class MainActivity : AppCompatActivity() {
         updateQuestion()
     }
 
+    override fun onStart() {
+        super.onStart()
+        Log.d("MainActivity", "onStart() called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("MainActivity", "onResume() called")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("MainActivity", "onPause() called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("MainActivity", "onStop() called")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("MainActivity", "onDestroy() called")
+    }
+
     private fun updateQuestion() {
         val questionTextResId = questionBank[currentIndex].textResId
         questionTextView.setText(questionTextResId)
-        resultTextView.setText((countTrueAnswer/countAnswer).toString())
         trueButton.isClickable = true
         falseButton.isClickable = true
     }
@@ -70,7 +95,16 @@ class MainActivity : AppCompatActivity() {
         } else {
             R.string.incorrect_toast
         }
+        countAnswer+=1.0
         if (userAnswer == correctAnswer) countTrueAnswer++
+        if (countAnswer >= 6.0){
+            resultTextView.text = "Правильных ответов: "+ (((countTrueAnswer.toDouble()/countAnswer)*100).toInt().toString())+"%"
+            nextButton.isClickable = false
+            lastButton.isClickable = false
+            trueButton.isClickable = false
+            falseButton.isClickable = false
+        }
+        Log.d("MainActivity", "Count = $countTrueAnswer")
 
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show()
         trueButton.isClickable = false
