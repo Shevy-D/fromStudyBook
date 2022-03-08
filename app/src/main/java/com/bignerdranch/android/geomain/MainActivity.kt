@@ -2,10 +2,13 @@ package com.bignerdranch.android.geomain
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
+
+private const val TAG: String = "MainActivity"
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,6 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("MainActivity", "onCreate(Bundle?) called")
         setContentView(R.layout.activity_main)
         trueButton = findViewById(R.id.true_button)
         falseButton = findViewById(R.id.false_button)
@@ -34,10 +38,10 @@ class MainActivity : AppCompatActivity() {
         lastButton = findViewById(R.id.last_button)
         questionTextView = findViewById(R.id.question_text_view)
 
-        trueButton.setOnClickListener { /*view: View ->*/
+        trueButton.setOnClickListener {
             checkAnswer(true)
         }
-        falseButton.setOnClickListener { view: View ->
+        falseButton.setOnClickListener {
             checkAnswer(false)
         }
         nextButton.setOnClickListener {
@@ -49,6 +53,31 @@ class MainActivity : AppCompatActivity() {
             updateQuestion()
         }
         updateQuestion()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("MainActivity", "onStart() called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("MainActivity", "onResume() called")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("MainActivity", "onPause() called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("MainActivity", "onStop() called")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("MainActivity", "onDestroy() called")
     }
 
     private fun updateQuestion() {
