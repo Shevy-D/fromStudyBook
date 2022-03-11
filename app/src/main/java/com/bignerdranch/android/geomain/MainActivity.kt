@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 private const val TAG: String = "MainActivity"
 private const val KEY_INDEX = "index"
 private const val REQUEST_CODE_CHEAT = 0
+var count = 0
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         nextButton.setOnClickListener {
             quizViewModel.moveToText()
             updateQuestion()
+            quizViewModel.isCheater = false
         }
         lastButton.setOnClickListener {
             quizViewModel.lastToText()
@@ -69,7 +71,6 @@ class MainActivity : AppCompatActivity() {
         if (resultCode != Activity.RESULT_OK) {
             return
         }
-
         if (requestCode == REQUEST_CODE_CHEAT) {
             quizViewModel.isCheater = data?.getBooleanExtra(EXTRA_ANSWER_SHOW, false) ?: false
         }
@@ -114,10 +115,15 @@ class MainActivity : AppCompatActivity() {
     private fun checkAnswer(userAnswer: Boolean) {
         val correctAnswer = quizViewModel.currentQuestionAnswer
         val messageResId = when {
-            quizViewModel.isCheater -> R.string.judgment_toast
+            quizViewModel.isCheater -> {
+                R.string.judgment_toast
+            }
             userAnswer == correctAnswer -> R.string.correct_toast
             else -> R.string.incorrect_toast
         }
+        if (quizViewModel.isCheater) count++
+        Log.d("MyLog", "Count = $count")
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show()
+
     }
 }
