@@ -3,6 +3,7 @@ package com.bignerdranch.android.geomain
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -15,6 +16,7 @@ private const val EXTRA_ANSWER_IS_TRUE = "com.bignerdranch.android.geomain.answe
 class CheatActivity : AppCompatActivity() {
     private lateinit var answerTextView: TextView
     private lateinit var showAnswerButton: Button
+    private lateinit var apiVersion: TextView
 
 
     private var answerIsTrue = false
@@ -32,6 +34,9 @@ class CheatActivity : AppCompatActivity() {
             answerTextView.setText(answerText)
             setAnswerShowResult(true)
         }
+        apiVersion = findViewById(R.id.api_version)
+        apiVersion.text = "API level " + Build.VERSION.SDK_INT
+
     }
 
     private fun setAnswerShowResult(isAnswerShown: Boolean) {
